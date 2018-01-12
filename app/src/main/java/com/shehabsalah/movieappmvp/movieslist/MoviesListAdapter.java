@@ -24,15 +24,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.shehabsalah.movieappmvp.R;
 import com.shehabsalah.movieappmvp.data.Movie;
 import com.shehabsalah.movieappmvp.util.Constants;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -48,13 +44,13 @@ public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.my
     private ArrayList<Movie> movies;
     private MoviesContract.Presenter presenter;
 
-    public MoviesListAdapter(Context context, ArrayList<Movie> movies, MoviesContract.Presenter presenter) {
+    MoviesListAdapter(Context context, ArrayList<Movie> movies, MoviesContract.Presenter presenter) {
         this.context = context;
         this.movies = movies;
         this.presenter = presenter;
     }
 
-    public void replaceData(ArrayList<Movie> movies) {
+    void replaceData(ArrayList<Movie> movies) {
         setList(movies);
         notifyDataSetChanged();
     }
@@ -72,18 +68,18 @@ public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.my
         @BindView(R.id.item_container)
         CardView cardView;
 
-        public myViewHolder(View itemView) {
+        myViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
         @OnClick(R.id.item_container)
-        public void onItemClicked() {
-            presenter.goToDetailsActivity(movies.get(getAdapterPosition()));
+        void onItemClicked() {
+            presenter.goToDetailsActivity(movies.get(getAdapterPosition()), moviePoster, movieTitle);
         }
 
         @OnLongClick(R.id.item_container)
-        public boolean onItemLongClick(){
+        boolean onItemLongClick(){
             presenter.openMoviePreview(movies.get(getAdapterPosition()), moviePoster, movieTitle, cardView);
             return true;
         }

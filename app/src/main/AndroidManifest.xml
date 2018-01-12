@@ -23,8 +23,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".moviepreview.MoviePreviewActivity"
-            android:theme="@style/AppTheme.Transparent"/>
+        <activity
+            android:name=".moviepreview.MoviePreviewActivity"
+            android:theme="@style/AppTheme.Transparent" />
+        <activity android:name=".moviedetails.DetailsActivity"
+            android:parentActivityName=".movieslist.MainActivity"/>
     </application>
 
 </manifest>

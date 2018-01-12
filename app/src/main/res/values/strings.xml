@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Movie App MVP</string>
 
+    <string name="vote">%1$s / 10</string>
+    <string name="trailers">Trailers: </string>
+    <string name="reviews">Reviews: </string>
 
     <string name="no_internet_error_message">There is no internet connection!</string>
     <string name="no_movies">There is no movies!</string>

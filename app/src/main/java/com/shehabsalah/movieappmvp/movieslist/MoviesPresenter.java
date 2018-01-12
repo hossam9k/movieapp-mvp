@@ -17,21 +17,10 @@
 package com.shehabsalah.movieappmvp.movieslist;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Build;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.shehabsalah.movieappmvp.data.Movie;
 import com.shehabsalah.movieappmvp.data.source.local.MovieAppDatabase;
 import com.shehabsalah.movieappmvp.data.source.remote.MovieApiConfig;
@@ -40,12 +29,13 @@ import com.shehabsalah.movieappmvp.data.source.remote.listeners.NoConnectionList
 import com.shehabsalah.movieappmvp.data.source.remote.listeners.OnServiceListener;
 import com.shehabsalah.movieappmvp.data.source.remote.request.RequestHandler;
 import com.shehabsalah.movieappmvp.data.source.remote.response.GeneralResponse;
+import com.shehabsalah.movieappmvp.moviedetails.DetailsActivity;
 import com.shehabsalah.movieappmvp.moviepreview.MoviePreviewActivity;
 import com.shehabsalah.movieappmvp.util.ApplicationClass;
 import com.shehabsalah.movieappmvp.util.Constants;
-
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+
+import static android.support.v4.app.ActivityOptionsCompat.*;
 
 /**
  * Created by ShehabSalah on 1/8/18.
@@ -59,7 +49,7 @@ public class MoviesPresenter implements MoviesContract.Presenter, OnServiceListe
     private MovieAppDatabase movieAppDatabase;
     private Activity activity;
 
-    public MoviesPresenter(MoviesContract.View views) {
+    MoviesPresenter(MoviesContract.View views) {
         this.views = views;
         movieAppDatabase = MovieAppDatabase.getInstance(ApplicationClass.getAppContext());
     }
@@ -93,8 +83,18 @@ public class MoviesPresenter implements MoviesContract.Presenter, OnServiceListe
     }
 
     @Override
-    public void goToDetailsActivity(Movie movie) {
-        //ToDo: make intent to the moviesDetails
+    public void goToDetailsActivity(Movie movie, View imageView, View textView) {
+        if (movie != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Pair<View, String> imagePair = Pair.create(imageView, Constants.KEY_CONNECTION_IMAGE);
+                ActivityOptionsCompat options = makeSceneTransitionAnimation(activity,
+                         imagePair);
+                activity.startActivity(DetailsActivity.getDetailsIntent(activity, movie), options.toBundle());
+            } else {
+                activity.startActivity(DetailsActivity.getDetailsIntent(activity, movie));
+            }
+
+        }
     }
 
     @Override
@@ -132,7 +132,6 @@ public class MoviesPresenter implements MoviesContract.Presenter, OnServiceListe
 
     @Override
     public void onResponse(String TAG, Object response) {
-        Log.e("requests", "Request End");
         if (response instanceof MoviesResponse) {
             MoviesResponse moviesResponse = (MoviesResponse) response;
             ArrayList<Movie> movies = moviesResponse.getResults();
@@ -157,23 +156,17 @@ public class MoviesPresenter implements MoviesContract.Presenter, OnServiceListe
 
     @Override
     public void openMoviePreview(Movie movie, View imageView, View textView, View cardView) {
-        if (movie!=null){
-            Intent intent = new Intent(activity, MoviePreviewActivity.class);
-            intent.putExtra(Constants.MOVIE_EXTRA, movie);
+        if (movie != null) {
             views.makeBackgroundBlur();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                //1
                 Pair<View, String> titlePair = Pair.create(textView, Constants.KEY_CONNECTION_TITLE);
-                //2
                 Pair<View, String> imagePair = Pair.create(imageView, Constants.KEY_CONNECTION_IMAGE);
-                //3
                 Pair<View, String> containerPair = Pair.create(cardView, Constants.KEY_CONNECTION_CONTAINER);
-                ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation(activity,
+                ActivityOptionsCompat options = makeSceneTransitionAnimation(activity,
                                 titlePair, imagePair, containerPair);
-                activity.startActivity(intent, options.toBundle());
+                activity.startActivity(MoviePreviewActivity.getDetailsIntent(activity, movie), options.toBundle());
             } else {
-                activity.startActivity(intent);
+                activity.startActivity(MoviePreviewActivity.getDetailsIntent(activity, movie));
             }
         }
     }
@@ -181,7 +174,7 @@ public class MoviesPresenter implements MoviesContract.Presenter, OnServiceListe
     private void saveListIntoDatabase(ArrayList<Movie> movies) {
         deleteAll();
         for (Movie movie : movies) {
-            switch (moviesSortType){
+            switch (moviesSortType) {
                 case MOST_POPULAR:
                     movie.setType(Constants.PAGE_POPULAR);
                     break;

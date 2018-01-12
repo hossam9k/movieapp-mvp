@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="marquee"
-            android:padding="@dimen/default_padding"
+            android:padding="@dimen/regular_padding"
             android:singleLine="true"
             android:textSize="@dimen/small_text_size"
             android:transitionName="movie_title"

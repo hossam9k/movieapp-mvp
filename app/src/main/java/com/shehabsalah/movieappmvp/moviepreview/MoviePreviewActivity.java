@@ -15,18 +15,17 @@
  */
 package com.shehabsalah.movieappmvp.moviepreview;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.shehabsalah.movieappmvp.R;
 import com.shehabsalah.movieappmvp.data.Movie;
 import com.shehabsalah.movieappmvp.util.Constants;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -42,6 +41,10 @@ public class MoviePreviewActivity extends AppCompatActivity implements MoviePrev
     TextView favoriteText;
     MoviePreviewContract.presenter mPresenter;
     Movie movie;
+
+    public static Intent getDetailsIntent(Context context, Movie movie) {
+        return new Intent(context, MoviePreviewActivity.class).putExtra(Constants.MOVIE_EXTRA, movie);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

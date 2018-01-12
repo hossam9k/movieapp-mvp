@@ -37,7 +37,7 @@ public interface MoviesContract {
     }
 
     interface Presenter{
-        void goToDetailsActivity(Movie movie);
+        void goToDetailsActivity(Movie movie, android.view.View imageView, android.view.View textView);
         void loadMovies();
         void setMoviesType(MoviesSortType moviesType, boolean reload);
         void setActivity(Activity activity);

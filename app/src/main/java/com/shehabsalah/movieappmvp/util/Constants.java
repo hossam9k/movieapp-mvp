@@ -31,6 +31,7 @@ public class Constants {
     //LINKS
     public static final String BASE_URL                 = "http://api.themoviedb.org/3/movie/";
     public static final String IMAGE_URL                = "http://image.tmdb.org/t/p/w342";
+    public static final String BACKDROP_URL             = "http://image.tmdb.org/t/p/w780";
 
     //PARAMS
     public static final String PARAM_API_KEY            = "api_key";

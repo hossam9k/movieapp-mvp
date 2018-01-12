@@ -28,9 +28,9 @@
                     android:id="@+id/error_message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/default_padding"
+                    android:padding="@dimen/regular_padding"
                     android:textAlignment="center"
-                    android:textSize="@dimen/default_text_size"
+                    android:textSize="@dimen/medium_text_size"
                     tools:text="There is no favorites movies" />
             </RelativeLayout>
         </FrameLayout>
