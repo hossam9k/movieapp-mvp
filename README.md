@@ -10,8 +10,9 @@ This version of the app uses some other libraries:
 - CardView: used for representing the information in a card manner with a drop shadow and corner radius which looks consistent across the platform.
 - RecyclerView: The RecyclerView widget is a more advanced and flexible version of ListView.
 - GSON: Gson is a Java library that can be used to convert Java Objects into their JSON representation. It can also be used to convert a JSON string to an equivalent Java object.
-- Retrofit: This library used to send HTTP request to the server and retrive respons.
+- Retrofit: This library used to send HTTP request to the server and retrieve response.
 - ROOM Library: Room provides an abstraction layer over SQLite to allow fluent database access while harnessing the full power of SQLite.
+- BlurView Library: It blurs its underlying content and draws it as a background for its children.
 
 # The Movie DB API Key is required.
 In order for the MoviesZone app to function properly as of January 7th, 2018 an API key for themoviedb.org must be included with the build.

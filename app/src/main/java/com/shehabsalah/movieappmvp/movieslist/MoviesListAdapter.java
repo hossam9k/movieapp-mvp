@@ -39,7 +39,7 @@ import butterknife.OnLongClick;
  *
  */
 
-public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.myViewHolder>{
+public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.MyViewHolder>{
     private Context context;
     private ArrayList<Movie> movies;
     private MoviesContract.Presenter presenter;
@@ -60,7 +60,7 @@ public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.my
             this.movies = movies;
     }
 
-    class myViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.movie_poster)
         ImageView moviePoster;
         @BindView(R.id.movie_title)
@@ -68,7 +68,7 @@ public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.my
         @BindView(R.id.item_container)
         CardView cardView;
 
-        myViewHolder(View itemView) {
+        MyViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
@@ -86,15 +86,15 @@ public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.my
     }
 
     @Override
-    public myViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_list_movie, parent, false);
 
-        return new MoviesListAdapter.myViewHolder(itemView);
+        return new MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(myViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, int position) {
         Movie movie = movies.get(position);
         Picasso.with(context)
                 .load(Constants.IMAGE_URL + movie.getPosterPath())

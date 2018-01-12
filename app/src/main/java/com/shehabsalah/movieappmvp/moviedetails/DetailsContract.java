@@ -16,6 +16,10 @@
 package com.shehabsalah.movieappmvp.moviedetails;
 
 import com.shehabsalah.movieappmvp.data.Movie;
+import com.shehabsalah.movieappmvp.data.MovieReviews;
+import com.shehabsalah.movieappmvp.data.MovieTrailers;
+
+import java.util.ArrayList;
 
 /**
  * Created by ShehabSalah on 1/12/18.
@@ -24,15 +28,16 @@ import com.shehabsalah.movieappmvp.data.Movie;
 
 public interface DetailsContract {
     interface view{
-        void showTrailers();
+        void showTrailers(ArrayList<MovieTrailers> movieTrailers);
         void hideTrailers();
-        void showReviews();
+        void showReviews(ArrayList<MovieReviews> reviews);
         void hideReviews();
         void favoriteResponse(Movie movie);
     }
 
     interface presenter{
         void loadMovieInformation(int movieId);
+        void onTrailerClicked(String key);
         void onFavoriteClick(Movie movie);
     }
 }

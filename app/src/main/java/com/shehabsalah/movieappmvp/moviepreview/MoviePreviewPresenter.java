@@ -22,6 +22,8 @@ import com.shehabsalah.movieappmvp.util.Constants;
 
 /**
  * Created by ShehabSalah on 1/10/18.
+ * Listens to user actions from the UI ({@link MoviePreviewActivity}), retrieves the data and updates the
+ * UI as required.
  */
 
 public class MoviePreviewPresenter implements MoviePreviewContract.presenter {
@@ -29,7 +31,7 @@ public class MoviePreviewPresenter implements MoviePreviewContract.presenter {
     private MoviePreviewContract.view view;
     private MovieAppDatabase movieAppDatabase;
 
-    public MoviePreviewPresenter(MoviePreviewContract.view view) {
+    MoviePreviewPresenter(MoviePreviewContract.view view) {
         this.view = view;
         movieAppDatabase = MovieAppDatabase.getInstance(ApplicationClass.getAppContext());
     }

@@ -21,11 +21,13 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import com.shehabsalah.movieappmvp.data.Movie;
+import com.shehabsalah.movieappmvp.data.MovieReviews;
+import com.shehabsalah.movieappmvp.data.MovieTrailers;
 
 /**
  * Created by ShehabSalah on 1/9/18.
  */
-@Database(entities = {Movie.class}, version = 1)
+@Database(entities = {Movie.class, MovieReviews.class, MovieTrailers.class}, version = 2)
 public abstract class MovieAppDatabase extends RoomDatabase {
 
     private static MovieAppDatabase INSTANCE;
@@ -45,4 +47,6 @@ public abstract class MovieAppDatabase extends RoomDatabase {
             return INSTANCE;
         }
     }
+
+
 }

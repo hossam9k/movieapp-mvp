@@ -21,6 +21,9 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 import com.shehabsalah.movieappmvp.data.Movie;
+import com.shehabsalah.movieappmvp.data.MovieReviews;
+import com.shehabsalah.movieappmvp.data.MovieTrailers;
+
 import java.util.List;
 
 /**
@@ -40,7 +43,7 @@ public interface MovieDAO {
     List<Movie> selectFavorites();
 
     /**
-     * Insert a movie in the database. If the task already exists, ignore it.
+     * Insert a movie in the database. If the movie already exists, ignore it.
      *
      * @param movie the movie to be inserted.
      */
@@ -57,12 +60,50 @@ public interface MovieDAO {
     int updateMovie(Movie movie);
 
     /**
-     * Delete a movie by id.
+     * Delete all movies.
      *
-     * @return the number of tasks deleted. This should always be 1.
+     * @return the number of movies deleted.
      */
     @Query("DELETE FROM movies WHERE favorite = 0")
     int deleteAll();
 
+    @Query("SELECT * FROM reviews WHERE movie_id = :movieId")
+    List<MovieReviews> selectReviews(int movieId);
+
+    /**
+     * Insert a movie review in the database. If the movie review already exists, ignore it.
+     *
+     * @param movieReviews movie review to be inserted.
+     */
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insertMovieReview(MovieReviews movieReviews);
+
+    /**
+     * Delete a movie review by movie id.
+     *
+     * @return the number of movie reviews deleted..
+     */
+    @Query("DELETE FROM reviews WHERE movie_id = :movieId")
+    int deleteAllReviews(int movieId);
+
+
+    @Query("SELECT * FROM trailers WHERE movie_id = :movieId")
+    List<MovieTrailers> selectTrailers(int movieId);
+
+    /**
+     * Insert a movie trailer in the database. If the movie trailer already exists, ignore it.
+     *
+     * @param movieTrailers movie trailer to be inserted.
+     */
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insertMovieTrailer(MovieTrailers movieTrailers);
+
+    /**
+     * Delete a movie trailer by movie id.
+     *
+     * @return the number of movie trailers deleted..
+     */
+    @Query("DELETE FROM trailers WHERE movie_id = :movieId")
+    int deleteAllTrailers(int movieId);
 
 }

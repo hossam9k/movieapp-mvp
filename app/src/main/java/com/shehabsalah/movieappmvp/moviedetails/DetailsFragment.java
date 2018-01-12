@@ -15,28 +15,35 @@
  */
 package com.shehabsalah.movieappmvp.moviedetails;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.shehabsalah.movieappmvp.R;
 import com.shehabsalah.movieappmvp.data.Movie;
+import com.shehabsalah.movieappmvp.data.MovieReviews;
+import com.shehabsalah.movieappmvp.data.MovieTrailers;
+import com.shehabsalah.movieappmvp.moviedetails.adapters.ReviewsAdapter;
+import com.shehabsalah.movieappmvp.moviedetails.adapters.TrailersAdapter;
 import com.shehabsalah.movieappmvp.util.Constants;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-
+import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
  * Created by ShehabSalah on 1/12/18.
+ *
  */
 
 public class DetailsFragment extends Fragment implements DetailsContract.view {
@@ -78,25 +85,21 @@ public class DetailsFragment extends Fragment implements DetailsContract.view {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.details_layout, container, false);
         ButterKnife.bind(this, mainView);
-        mPresenter = new DetailsPresenter(this);
+        mPresenter = new DetailsPresenter(this, getActivity());
         Bundle extras = getArguments();
         if (extras != null && extras.containsKey(Constants.MOVIE_EXTRA)) {
             movie = extras.getParcelable(Constants.MOVIE_EXTRA);
-            String title = null;
             String image = null;
-            if (extras.containsKey(Constants.KEY_CONNECTION_TITLE))
-                title = extras.getString(Constants.KEY_CONNECTION_TITLE);
             if (extras.containsKey(Constants.KEY_CONNECTION_IMAGE))
                 image = extras.getString(Constants.KEY_CONNECTION_IMAGE);
 
-            initViews(title, image);
+            initViews(image);
         }
 
         return mainView;
     }
 
-
-    private void initViews(String title, String image) {
+    private void initViews(String image) {
         if (image != null) {
             Picasso.with(getActivity())
                     .load(image)
@@ -136,6 +139,24 @@ public class DetailsFragment extends Fragment implements DetailsContract.view {
 
         favoriteResponse(movie);
 
+        LinearLayoutManager reviewLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(
+                reviewRecyclerView.getContext(),
+                reviewLayoutManager.getOrientation()
+        );
+        reviewRecyclerView.setLayoutManager(reviewLayoutManager);
+        reviewRecyclerView.addItemDecoration(mDividerItemDecoration);
+        reviewRecyclerView.setNestedScrollingEnabled(false);
+
+        LinearLayoutManager trailerLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        trailerRecyclerView.setLayoutManager(trailerLayoutManager);
+
+
+        mPresenter.loadMovieInformation(movie.getMovieId());
+
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+            backDropPoster.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
     }
 
     @OnClick(R.id.favorite)
@@ -158,13 +179,15 @@ public class DetailsFragment extends Fragment implements DetailsContract.view {
     }
 
     @Override
-    public void showTrailers() {
-
+    public void showTrailers(ArrayList<MovieTrailers> movieTrailers) {
+        TrailersAdapter trailersAdapter = new TrailersAdapter(movieTrailers, getActivity(), mPresenter);
+        trailerRecyclerView.setAdapter(trailersAdapter);
     }
 
     @Override
-    public void showReviews() {
-
+    public void showReviews(ArrayList<MovieReviews> reviews) {
+        ReviewsAdapter reviewsAdapter = new ReviewsAdapter(reviews);
+        reviewRecyclerView.setAdapter(reviewsAdapter);
     }
 
     @Override
