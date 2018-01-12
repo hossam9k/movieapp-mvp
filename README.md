@@ -3,6 +3,9 @@ This version of the app is called movieapp-mvp, and provides a foundation for ot
 - Provide a basic Model-View-Presenter (MVP) architecture without using any architectural frameworks.
 - Act as a reference point for comparing and contrasting the other samples in this project.
 
+## Screenshots
+<img src="https://user-images.githubusercontent.com/16334887/34884731-51a45c7e-f7c6-11e7-9034-f867bc03bf30.png" width="250"/> <img src="https://user-images.githubusercontent.com/16334887/34884881-c8b36e36-f7c6-11e7-9045-e4a1a4a66c98.png" width="250"/> <img src="https://user-images.githubusercontent.com/16334887/34884920-edd43218-f7c6-11e7-9b2e-7c68566f74ee.png" width="250"/> <img src="https://user-images.githubusercontent.com/16334887/34884954-07e67bde-f7c7-11e7-9e92-8192407a93a8.png" width="250"/> <img src="https://user-images.githubusercontent.com/16334887/34884999-2febb6b2-f7c7-11e7-8949-7987b4181ce0.png" width="250"/> <img src="https://user-images.githubusercontent.com/16334887/34885031-480857c8-f7c7-11e7-85f2-1831977b8de5.png" width="250"/>
+
 ## Libraries
 This version of the app uses some other libraries:
 - Picasso: used for loading, processing, caching and displaying remote and local images.
