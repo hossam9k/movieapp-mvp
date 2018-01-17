@@ -26,8 +26,7 @@ Include the unique key for the build by adding the following line to util/Consta
 API_KEY = "";
 </code>
 
-<code>
-  
+
 ```
 Copyright (C) 2018 The Android Open Source Project
 
