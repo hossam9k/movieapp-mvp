@@ -18,7 +18,7 @@ This version of the app uses some other libraries:
 - BlurView Library: It blurs its underlying content and draws it as a background for its children.
 
 # The Movie DB API Key is required.
-In order for the MoviesZone app to function properly as of January 7th, 2018 an API key for themoviedb.org must be included with the build.
+In order for the movieapp-mvp app to function properly as of January 7th, 2018 an API key for themoviedb.org must be included with the build.
 
 Include the unique key for the build by adding the following line to util/Constants.java or find the TODO Line.
 
